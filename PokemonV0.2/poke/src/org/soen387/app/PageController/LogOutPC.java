@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.soen387.app.TransactionScript.updateUserStatusTS;
 import org.soen387.app.common.Constants;
 
-@WebServlet("/Logout")
+@WebServlet("/Poke/Player/Logout")
 public class LogOutPC extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

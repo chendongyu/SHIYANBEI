@@ -21,7 +21,7 @@ import org.soen387.app.viewHelper.UserHelper;
 /**
  * Servlet implementation class Login
  */
-@WebServlet("/Login")
+@WebServlet("/Poke/Player/Login")
 public class LoginPC extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

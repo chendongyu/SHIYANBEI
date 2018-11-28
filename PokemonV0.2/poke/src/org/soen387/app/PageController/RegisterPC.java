@@ -21,7 +21,7 @@ import org.soen387.app.viewHelper.UserHelper;
 /**
  * Servlet implementation class Register
  */
-@WebServlet("/Register")
+@WebServlet("/Poke/Player/Register")
 public class RegisterPC extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

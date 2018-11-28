@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -7,11 +10,46 @@ import com.jayway.jsonpath.JsonPath;
 public class TestJSONPath {
 
 	public static void main(String[] args) {
-		String jsonText = " {\"board\":[{\"id\":1,\"players\":[2,1],\"decks\":[2,1],\"play\": {\"2\":{\"status\": \"playing\",\"handsize\":0,\"decksize\":40},\"1\":{\"status\": \"playing\",\"handsize\":0,\"decksize\":40}}}]}";
-		DocumentContext dc = JsonPath.parse(jsonText);
-		String query = " \"board.play.\"+2+\".decksize\"";
-		List<Map<String, Object>> jPathResult = dc.read(query);
-		System.out.println(jPathResult);
+		try {
+			/*
+			String jsonText = "";
+			BufferedReader br = new BufferedReader(new FileReader("challenge.json"));
+			String line = "";
+			while((line = br.readLine()) != null) {
+				jsonText += line + "\n";
+			}
+			
+			System.out.println(jsonText);
+			
+			DocumentContext dc = JsonPath.parse(jsonText);
+			String query = "challenges[?(@['challenger']==1 && @['challengee']==2 && @['status']==3)]";
+			List<Map<String, Object>> jPathResult = dc.read(query);
+			
+			int ChallengeId = (Integer)((Object)jPathResult.get(0).get("id"));
+			int ChallengeVersion =(Integer)((Object)jPathResult.get(0).get("version"));
+			
+			System.out.println(ChallengeId);
+			System.out.println(ChallengeVersion);
+			*/
+			
+			String jsonText = "";
+			BufferedReader br = new BufferedReader(new FileReader("emptyDecks.json"));
+			String line = "";
+			while((line = br.readLine()) != null) {
+				jsonText += line + "\n";
+			}
+			
+			System.out.println(jsonText);
+			
+			DocumentContext dc = JsonPath.parse(jsonText);
+			String query = "decks[*]";
+			List<Map<String, Object>> jPathResult = dc.read(query);
+			System.out.println(jPathResult.size());
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

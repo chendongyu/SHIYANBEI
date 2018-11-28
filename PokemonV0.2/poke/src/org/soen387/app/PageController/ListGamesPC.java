@@ -13,7 +13,7 @@ import org.soen387.app.TransactionScript.ListGamesTS;
 import org.soen387.app.viewHelper.GameHelper;
 import org.soen387.app.viewHelper.ViewHelper;
 
-@WebServlet("/ListGames")
+@WebServlet("/Poke/Game")
 public class ListGamesPC extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
