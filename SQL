@@ -1,0 +1,11 @@
+select * from deck;
+truncate table deck;
+select * from user;
+truncate table user;
+select * from challenge;
+truncate table challenge;
+select * from bench;
+select * from inhand;
+select * from upload;
+select * from board;
+select * from play;

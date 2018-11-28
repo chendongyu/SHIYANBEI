@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+runtimes/default=erl9.3
+runtimes/erl9.3/args=
+runtimes/erl9.3/codePath=
+runtimes/erl9.3/homeDir=c\:\\program files\\erl9.3
+runtimes/erlide=erl9.3

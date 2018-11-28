@@ -1,0 +1,24 @@
+user表：（没有player表了 目前就用user代替）
+ID，用户名，密码（json返回的时候不要返回密码这列）
+
+board表：
+玩家1，卡组ID，玩家2，卡组ID，play表的ID,boardID
+	
+
+deck表：
+卡组ID，卡类型，卡名称,deckID(用于区分)
+
+challenge表：
+这个challenge的ID， challengerID，(挑战者ID)，challengeeID(被挑战者ID)，status：状态(分为0，1，2,3)       
+//0是默认值，1为被 被挑战者拒绝，2为挑战者取消了挑战，3为挑战被接受了
+
+
+play表
+ID，玩家1ID，状态，手牌，手牌数量，卡组剩余卡，玩家1废牌区卡数，出战席位ID，玩家2ID，状态，手牌，手牌数量，卡组剩余卡，玩家2废牌区卡数，出战席位ID
+
+bench表
+ID，玩家ID，席位1，席位2，席位3，席位4，席位5
+//每个席位放deck里的order进去
+
+手牌表
+ID，玩家ID，手牌1，手牌2，手牌3，手牌4，手牌5，手牌6，手牌7
