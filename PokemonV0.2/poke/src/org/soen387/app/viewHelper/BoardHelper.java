@@ -8,6 +8,11 @@ import org.soen387.app.rdg.DeckRDG;
 public class BoardHelper implements ViewHelper {
 	
 	private String id;
+	private String version;
+	private String current;
+	
+
+
 	private String[] players;
 	
 	private String[] decks;
@@ -26,13 +31,23 @@ public class BoardHelper implements ViewHelper {
 		playJson.append("\":");
 		playJson.append(id);
 		playJson.append(",\"");
+		
+		playJson.append("version");
+		playJson.append("\":");
+		playJson.append(version);
+		playJson.append(",\"");
+		
 		playJson.append("players\":[");
 		for(String s : players) {
 			playJson.append(s);
 			playJson.append(",");
 		}
 		playJson.deleteCharAt(playJson.length()-1);
-		playJson.append("],\"decks\":[");
+		
+		playJson.append("],\"current\":");
+		playJson.append(current);
+		
+		playJson.append(",\"decks\":[");
 		for(String s : decks) {
 			playJson.append(s);
 			playJson.append(",");
@@ -102,6 +117,25 @@ public class BoardHelper implements ViewHelper {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getVersion() {
+		return version;
+	}
+
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+
+	public String getCurrent() {
+		return current;
+	}
+
+
+	public void setCurrent(String current) {
+		this.current = current;
 	}
 
 }

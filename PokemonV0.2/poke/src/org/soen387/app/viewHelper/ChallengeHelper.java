@@ -6,6 +6,9 @@ public class ChallengeHelper implements ViewHelper{
 	
 	private String challenger;
 	
+	private String version = "1";
+	
+
 	private String challengee;
 	
 	private String status;
@@ -16,6 +19,8 @@ public class ChallengeHelper implements ViewHelper{
 		StringBuffer userJson = new StringBuffer();
 		userJson.append("{\"id\":");
 		userJson.append(id);
+		userJson.append("{\"version\":");
+		userJson.append(version);
 		userJson.append(",\"challenger\":\"");
 		userJson.append(challenger);
 		userJson.append("\",\"challengee\":\"");
@@ -57,4 +62,12 @@ public class ChallengeHelper implements ViewHelper{
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
 }
