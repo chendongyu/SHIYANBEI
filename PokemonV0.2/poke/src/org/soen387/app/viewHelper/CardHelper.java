@@ -1,5 +1,7 @@
 package org.soen387.app.viewHelper;
 
+import org.soen387.app.common.CommonUtil;
+
 public class CardHelper implements ViewHelper {
 
 	private String name;
@@ -13,7 +15,16 @@ public class CardHelper implements ViewHelper {
 		playJson.append("{\"t\":\"");
 		playJson.append(type);
 		playJson.append("\",\"n\":\"");
-		playJson.append(name);
+		if(!CommonUtil.isEmpty(name)) {
+			String[] split = name.split(" ");
+			if(split.length>1) {
+				playJson.append(split[0]+",\"b\":"+split[1]);
+			}else {
+				playJson.append(name);
+			}
+		}else {
+			playJson.append(name);
+		}
 		playJson.append("\"}");
 		return playJson.toString();
 	}

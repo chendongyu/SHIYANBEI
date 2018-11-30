@@ -33,6 +33,12 @@ public class DeckRDG extends BaseRDG{
 		
 	}
 	
+	public DeckRDG(String deckId) {
+		
+		this.deckId = deckId;
+		
+	}
+	
 
 		
 	
@@ -94,6 +100,26 @@ public class DeckRDG extends BaseRDG{
 				
 				DeckRDG deckRDG = new DeckRDG(resultSet.getString(1),
 						resultSet.getString(2),resultSet.getString(3));
+				deckList.add(deckRDG);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return deckList;
+	}
+	
+	public static List<DeckRDG> findDecks(){
+		
+		List<DeckRDG> deckList = new ArrayList<DeckRDG>();
+		
+		ResultSet resultSet = excuteSelSql("SELECT DISTINCT DECK_ID FROM DECK");
+		
+		try {
+			while(resultSet.next()) {
+				
+				DeckRDG deckRDG = new DeckRDG(resultSet.getString(1));
 				deckList.add(deckRDG);
 			}
 		} catch (SQLException e) {

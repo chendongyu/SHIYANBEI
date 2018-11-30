@@ -2,7 +2,6 @@ package org.soen387.app.PageController;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.soen387.app.TransactionScript.UploadDeckTS;
-import org.soen387.app.TransactionScript.ViewDeckTS;
 import org.soen387.app.common.Constants;
-import org.soen387.app.viewHelper.DeckHelper;
+import org.soen387.app.rdg.DeckRDG;
+import org.soen387.app.viewHelper.DecksHelper;
 import org.soen387.app.viewHelper.ViewHelper;
 
-@WebServlet("/Poke/Deck/*")
-public class ViewDeckPC extends HttpServlet {
+@WebServlet("/Poke/Deck")
+public class ViewDecksPC extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +26,7 @@ public class ViewDeckPC extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ViewDeckPC() {
+    public ViewDecksPC() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,30 +39,23 @@ public class ViewDeckPC extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		String loginId = (String)request.getSession(true).getAttribute("loginId");
-
-		if(loginId == null) {
-			PrintWriter writer = response.getWriter();
-			writer.write(Constants.FAILUREJSON);
-			writer.close();
-		}
+		//viewHelper = new ArrayList<ViewHelper>();
 		
-		viewHelper = new ArrayList<ViewHelper>();
+		 String loginId = (String)request.getSession(true).getAttribute("loginId");
+			if(loginId == null) {
+				String jsonStr = Constants.FAILUREJSON;
+				PrintWriter writer = response.getWriter();
+				writer.write(jsonStr);
+				writer.close();
+			}
+			List<DeckRDG> allDeck = DeckRDG.findDecks();
+		DecksHelper decksHelper = new DecksHelper();
+		decksHelper.setDeckRDGs(allDeck);
+		String jsonStr = decksHelper.toJson();
+		PrintWriter writer = response.getWriter();
+		writer.write(jsonStr);
+		writer.close();
 		
-		if(ViewDeckTS.exceute(viewHelper, loginId)) {
-			
-			DeckHelper deckHelper = new DeckHelper();
-			deckHelper.setId(loginId);
-			deckHelper.setCards(viewHelper);
-			PrintWriter writer = response.getWriter();
-			writer.write(deckHelper.toJson());
-			writer.close();
-		}else {
-			
-			PrintWriter writer = response.getWriter();
-			writer.write(Constants.FAILUREJSON);
-			writer.close();
-		}
 	}
 	
 	/**
