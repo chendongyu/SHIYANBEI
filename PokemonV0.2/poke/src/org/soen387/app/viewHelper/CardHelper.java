@@ -4,6 +4,9 @@ import org.soen387.app.common.CommonUtil;
 
 public class CardHelper implements ViewHelper {
 
+	private String cardId;
+	
+
 	private String name;
 	
 	private String type;
@@ -12,7 +15,11 @@ public class CardHelper implements ViewHelper {
 	public String toJson() {
 		
 		StringBuffer playJson = new StringBuffer();
-		playJson.append("{\"t\":\"");
+		
+		playJson.append("{\"id\":");
+		playJson.append(cardId);
+		playJson.append(", ");
+		playJson.append("\"t\":\"");
 		playJson.append(type);
 		playJson.append("\",\"n\":\"");
 		if(!CommonUtil.isEmpty(name)) {
@@ -44,4 +51,13 @@ public class CardHelper implements ViewHelper {
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	public String getCardId() {
+		return cardId;
+	}
+
+	public void setCardId(String card_id) {
+		this.cardId = card_id;
+	}
+
 }

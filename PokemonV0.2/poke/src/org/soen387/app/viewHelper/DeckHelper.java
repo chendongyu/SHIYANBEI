@@ -14,10 +14,7 @@ public class DeckHelper implements ViewHelper {
 	public String toJson() {
 		
 		StringBuffer playJson = new StringBuffer();
-		playJson.append("{\"deck\":");
-		playJson.append("{\"id\":");
-		playJson.append(id);
-		playJson.append(",");
+		playJson.append("{");
 		playJson.append(CommonUtil.changeListToJsonPre("cards", cards));
 		playJson.append("}}");
 		return playJson.toString();

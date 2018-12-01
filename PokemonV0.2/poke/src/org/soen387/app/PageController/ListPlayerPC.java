@@ -20,7 +20,7 @@ import org.soen387.app.viewHelper.ViewHelper;
 /**
  * Servlet implementation class ListPlayer
  */
-@WebServlet("/ListPlayers")
+@WebServlet("/Poke/Player")
 public class ListPlayerPC extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
