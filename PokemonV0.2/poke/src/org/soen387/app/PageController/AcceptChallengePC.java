@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.soen387.app.TransactionScript.DrawCardTS;
 import org.soen387.app.TransactionScript.ListPlayerTS;
 import org.soen387.app.TransactionScript.playerChallengeTS;
 import org.soen387.app.TransactionScript.updateChallengeStatusTS;
@@ -39,13 +40,15 @@ public class AcceptChallengePC extends HttpServlet {
 		String challengeId = req.getParameter("challenge");
 		//String challengeIdInSession = (String) req.getSession(true).getAttribute("challenge");
 		Object challengeFlag = req.getSession(true).getAttribute("challengeFlag");
-
+		
 		
 		
 		List<DeckRDG> deckList = DeckRDG.findAll(challengerId);
 		
 		
 		List<ChallengeRDG> challengeRDGs = ChallengeRDG.findAllById(challengerId);
+		
+		
 		
 		if(challengeRDGs.size()==0) {
 			String jsonStr = Constants.FAILUREJSON_ACCEPTCHALLENGE;
@@ -74,6 +77,7 @@ public class AcceptChallengePC extends HttpServlet {
 			
 			req.getSession(true).setAttribute("gameId", (challengeId + challengerId));
 			
+			DrawCardTS.exceute(ChallengeRDG.findPlayers(challengeId).getChallenger(),challengeId);
 			PrintWriter writer = resp.getWriter();
 			writer.write(jsonStr);
 			writer.close();

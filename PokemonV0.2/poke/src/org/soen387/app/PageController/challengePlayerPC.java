@@ -27,9 +27,17 @@ public class challengePlayerPC extends HttpServlet {
 		String player1_id = (String)req.getSession(true).getAttribute("loginId");		
 		String player2_id = req.getParameter("player");
 		String status = "0";
-		
+		String deckId = req.getParameter("deck");
 		UserRDG userRDG = UserRDG.findById(player2_id);
 		
+		if(Integer.parseInt(deckId)<0) {
+			String jsonStr =Constants.FAILUREJSON_CHALLENGEPLAYER; // convert to json
+			PrintWriter writer = resp.getWriter();
+			//test
+			writer.write(jsonStr);
+			writer.close();
+		}
+	
 		if(userRDG == null ||CommonUtil.isEmpty(player1_id)|| CommonUtil.isEmpty(player2_id) || player1_id.equals(player2_id)
 				||Integer.parseInt(player1_id) < 0||Integer.parseInt(player2_id) < 0) {
 			String jsonStr = Constants.FAILUREJSON_CHALLENGEPLAYER;

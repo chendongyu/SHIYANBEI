@@ -20,9 +20,10 @@ public class ViewHandTS {
 		StringBuffer handBuffer = new StringBuffer();
 		handBuffer.append("{\"hand\":[");
 		for(int index=0;index<handCards.size(); index++) {
-			handBuffer.append("{\"id\":");
+			//handBuffer.append("{\"id\":");
 			handBuffer.append(handCards.get(index).getCardId());
-			handBuffer.append("},");
+			//handBuffer.append("},");
+			handBuffer.append(",");
 		}
 		if(handCards.size() > 0) {
 			handBuffer.deleteCharAt(handBuffer.length()-1);

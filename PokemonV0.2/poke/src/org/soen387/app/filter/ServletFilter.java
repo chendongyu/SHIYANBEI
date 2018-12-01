@@ -1,11 +1,15 @@
 package org.soen387.app.filter;
 
-import java.io.IOException;
+import java.io 
+
+.IOException;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -29,35 +33,55 @@ public class ServletFilter implements Filter {
 		String requestURI = httpServletRequest.getRequestURI();
 		
 		// TODO Auto-generated method stub
-		String Testpattern = "/poke/Poke/Game/.*?/Hand/.*?/Play/.*?/Challenge";
+		final String challengePlayerPattern = "/poke/Poke/Player/.*?/Challenge";
+		final String acceptPlayerPattern =  "/poke/Poke/Challenge/.*?/Accept";
+		final String viewBoardPattern = "/poke/Poke/Game/.*";
+		final String viewHandPattern = "/poke/Poke/Game/.*?/Hand";
+		final String endTurnPattern = "/poke/Poke/Game/.*?/EndTurn";
+		final String refuseChallengePattern = "/poke/Poke/Challenge/.*?/Refuse";
+		final String widthDrawChallengePattern = "/poke/Poke/Challenge/.*?/Withdraw";
 		
-		if(Pattern.matches(Testpattern, requestURI)) {
+		if(Pattern.matches(challengePlayerPattern, requestURI)) {
 			
 			String[] split = requestURI.split("/");
+			RequestDispatcher rd = request.getRequestDispatcher("/ChallengePlayer?player="+split[4]);
+			rd.forward(request, response);		
+		}else if(Pattern.matches(acceptPlayerPattern, requestURI)){
 			
-			System.out.println(split[0]);
+			String[] split = requestURI.split("/");
+			RequestDispatcher rd = request.getRequestDispatcher("/AcceptChallenge?challenge="+split[4]);
+			rd.forward(request, response);
+		}else if(Pattern.matches(viewBoardPattern, requestURI)){
 			
-//			if() {
-//				request.getRequestDispatcher("/poke/src/org/soen387/app/PageController/AcceptChallengePC.java").forward(request, response);
-//			}
-//			else if() {
-//				request.getRequestDispatcher("/poke/src/org/soen387/app/PageController/RefuseChallengePC.java").forward(request, response);
-//			}
-//			else if() {
-//				request.getRequestDispatcher("/poke/src/org/soen387/app/PageController/ChallengePlayerPC.java").forward(request, response);
-//			}
-//			
-//			else if() {
-//				request.getRequestDispatcher("/poke/src/org/soen387/app/PageController/ViewBoardPC.java").forward(request, response);
-//			}
-//			else if() {
-//				request.getRequestDispatcher("/poke/src/org/soen387/app/PageController/ViewHandPC.java").forward(request, response);
-//			}
-//			
-//		
+			if(Pattern.matches(viewHandPattern, requestURI)) {
+				
+				String[] split = requestURI.split("/");
+				RequestDispatcher rd = request.getRequestDispatcher("/ViewHand?game="+split[4]);
+				rd.forward(request, response);
+			}else if(Pattern.matches(endTurnPattern, requestURI)) {
+				
+				String[] split = requestURI.split("/");
+				RequestDispatcher rd = request.getRequestDispatcher("/EndTurn?game="+split[4]);
+				rd.forward(request, response);
+			}else {
+				
+				String[] split = requestURI.split("/");
+				RequestDispatcher rd = request.getRequestDispatcher("/ViewBoard?game="+split[4]);
+				rd.forward(request, response);
+			}
+		}else if(Pattern.matches(refuseChallengePattern, requestURI)){
+			
+			String[] split = requestURI.split("/");
+			RequestDispatcher rd = request.getRequestDispatcher("/RefuseChallenge?challenge="+split[4]);
+			rd.forward(request, response);
+		}else if(Pattern.matches(widthDrawChallengePattern, requestURI)){
+			
+			String[] split = requestURI.split("/");
+			RequestDispatcher rd = request.getRequestDispatcher("/WithdrawChallenge?challenge="+split[4]);
+			rd.forward(request, response);
+		}
 		
-			
-		}else {
+		else {
 			
 			filter.doFilter(request, response);
 		}

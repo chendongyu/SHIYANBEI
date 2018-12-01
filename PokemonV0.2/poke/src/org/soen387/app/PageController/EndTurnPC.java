@@ -2,7 +2,6 @@ package org.soen387.app.PageController;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,32 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.soen387.app.TransactionScript.DrawCardTS;
-import org.soen387.app.TransactionScript.ListGamesTS;
-import org.soen387.app.TransactionScript.UploadDeckTS;
-import org.soen387.app.TransactionScript.updateUserStatusTS;
 import org.soen387.app.common.Constants;
-import org.soen387.app.rdg.ChallengeRDG;
-import org.soen387.app.viewHelper.GameHelper;
-import org.soen387.app.viewHelper.ViewHelper;
 
+@WebServlet("/EndTurn")
+public class EndTurnPC extends HttpServlet {
 
-@WebServlet("/DrawCard")
-public class DrawCardPC extends HttpServlet {
-	
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DrawCardPC() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	
+//	private static int endTurnCounter = 0;
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		
+		
 		String gameId = (String)request.getParameter("game");
 		String loginId = (String)request.getSession(true).getAttribute("loginId");	
 		String deckId = loginId;
@@ -66,14 +52,29 @@ public class DrawCardPC extends HttpServlet {
 			writer.close();
 		}
 		
+		
+		
+//		if(endTurnCounter%2 == 1) {
+//			
+//			String jsonStr =Constants.SUCCESSJSON; // convert to json
+//			PrintWriter writer = resp.getWriter();
+//			writer.write(jsonStr);
+//			writer.close();
+//			endTurnCounter++;
+//			
+//			
+//		}
+//		else {
+//			String jsonStr =Constants.SUCCESSJSON; // convert to json
+//			PrintWriter writer = resp.getWriter();
+//			writer.write(jsonStr);
+//			writer.close();
+//			endTurnCounter++;
+//		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		doGet(req, resp);
 	}
 }

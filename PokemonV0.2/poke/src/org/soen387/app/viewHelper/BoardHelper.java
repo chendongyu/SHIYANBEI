@@ -26,7 +26,7 @@ public class BoardHelper implements ViewHelper {
 		
 		StringBuffer playJson = new StringBuffer();
 		
-		playJson.append("{\"board\":{\"");
+		playJson.append("{\"game\":{\"");
 		playJson.append("id");
 		playJson.append("\":");
 		playJson.append(id);

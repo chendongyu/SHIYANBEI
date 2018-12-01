@@ -19,7 +19,7 @@ public class ChallengeHelper implements ViewHelper{
 		StringBuffer userJson = new StringBuffer();
 		userJson.append("{\"id\":");
 		userJson.append(id);
-		userJson.append("{\"version\":");
+		userJson.append(",\"version\":");
 		userJson.append(version);
 		userJson.append(",\"challenger\":\"");
 		userJson.append(challenger);

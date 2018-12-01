@@ -416,7 +416,7 @@ public class TestSuite {
 			GameUtils.logout(webClient);
 			
 			Player.createPlayer(webClient, "testChallengePlayerFailureInvalidDeckB", "testChallengePlayerFailureInvalidDeckBPass");
-			Deck deck = Deck.createDeck(webClient, Deck.TEST_DECK1);
+			Deck deck = Deck.createDeck(webClient, Deck.TEST_DECK1); 
 			jsonText = GameUtils.challengePlayer(webClient, playerA.getId(), -deck.getId());
 			dc = JsonPath.parse(jsonText);
 			Assert.assertEquals("fail", dc.read("$['status']"));
