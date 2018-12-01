@@ -517,10 +517,10 @@ public class TestSuite {
 				String type = m.group(1);
 				String name = m.group(2);
 				String basicName = m.group(3);
-				Assert.assertEquals(type, dc.read("$['deck']['cards'][" + i + "]['t']"));
-				Assert.assertEquals(name, dc.read("$['deck']['cards'][" + i + "]['n']"));
+				Assert.assertEquals(type, dc.read("$['cards'][" + i + "]['t']"));
+				Assert.assertEquals(name, dc.read("$['cards'][" + i + "]['n']"));
 				if(basicName != null) {
-					Assert.assertEquals(basicName, dc.read("$['deck']['cards'][" + i + "]['b']"));	
+					Assert.assertEquals(basicName, dc.read("$['cards'][" + i + "]['b']"));	
 				}
 			}
 			
@@ -1505,8 +1505,5 @@ public class TestSuite {
 			Assert.assertTrue(false);
 		}
 	}
-	
-
-
-	
+		
 }
