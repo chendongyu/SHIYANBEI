@@ -8,7 +8,7 @@ import org.soen387.app.rdg.DeckRDG;
 public class BoardHelper implements ViewHelper {
 	
 	private String id;
-	private String version;
+	private String version = "1";
 	private String current;
 	
 

@@ -41,6 +41,8 @@ public class ServletFilter implements Filter {
 		final String refuseChallengePattern = "/poke/Poke/Challenge/.*?/Refuse";
 		final String widthDrawChallengePattern = "/poke/Poke/Challenge/.*?/Withdraw";
 		
+		
+		
 		if(Pattern.matches(challengePlayerPattern, requestURI)) {
 			
 			String[] split = requestURI.split("/");

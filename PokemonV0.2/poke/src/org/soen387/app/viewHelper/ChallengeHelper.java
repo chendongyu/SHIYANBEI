@@ -13,6 +13,8 @@ public class ChallengeHelper implements ViewHelper{
 	
 	private String status;
 	
+	
+	
 	@Override
 	public String toJson() {
 
@@ -27,7 +29,12 @@ public class ChallengeHelper implements ViewHelper{
 		userJson.append(challengee);
 		userJson.append("\",\"status\":\"");
 		userJson.append(status);
-		userJson.append("\"}");
+		userJson.append("\", \"deck\":");
+		userJson.append(challenger);
+		userJson.append("}");
+		
+		
+		
 		return userJson.toString();
 	}
 	
