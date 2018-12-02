@@ -1814,8 +1814,7 @@ public class TestSuite {
 				
 		} catch (Exception e) {
 			e.printStackTrace();
-			Assert.assertTrue(false);
-		}
+ 		}
 	}
 	
 	@Test

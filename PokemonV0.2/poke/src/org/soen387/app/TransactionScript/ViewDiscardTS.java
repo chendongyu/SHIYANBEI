@@ -18,6 +18,9 @@ public class ViewDiscardTS {
 		List<DeckRDG> handCards = DeckRDG.findDiscard(userId);
 		
 		StringBuffer handBuffer = new StringBuffer();
+		if(handCards.size()==0) {
+			return false;
+		}
 		handBuffer.append("{\"discard\":[");
 		for(int index=0;index<handCards.size(); index++) {
 			//handBuffer.append("{\"id\":");

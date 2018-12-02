@@ -50,8 +50,13 @@ public class ViewDiscardPC extends HttpServlet {
 			writer.write(Constants.FAILUREJSON);
 			writer.close();
 		}
+		if(gameId== null) {
+			PrintWriter writer = response.getWriter();
+			writer.write(Constants.FAILUREJSON);
+			writer.close();
+		}
 		
-		if(loginId!=challengerId || loginId!= challengeeId) {
+		if(!loginId.equals(challengerId) && !loginId.equals(challengeeId)) {
 			PrintWriter writer = response.getWriter();
 			writer.write(Constants.FAILUREJSON);
 			writer.close();
