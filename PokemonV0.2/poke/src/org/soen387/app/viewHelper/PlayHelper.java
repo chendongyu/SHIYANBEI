@@ -24,7 +24,15 @@ public class PlayHelper implements ViewHelper{
 		playJson.append("\"");
 		playJson.append(userId);
 		playJson.append("\":{");
-		playJson.append("\"status\": \"playing\",\"handsize\":");
+		playJson.append("\"status\":");
+		if("2".equals(status)) {
+			playJson.append("\"playing\"");
+		}
+		else  {
+			playJson.append("\"retired\"");
+		}
+		playJson.append(",");
+		playJson.append("\"handsize\":");
 		playJson.append(handSize);
 		playJson.append(",");
 		playJson.append("\"decksize\":");

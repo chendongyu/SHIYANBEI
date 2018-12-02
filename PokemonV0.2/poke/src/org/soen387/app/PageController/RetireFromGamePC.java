@@ -15,8 +15,10 @@ import org.soen387.app.TransactionScript.ListGamesTS;
 import org.soen387.app.TransactionScript.ListPlayerTS;
 import org.soen387.app.TransactionScript.playerChallengeTS;
 import org.soen387.app.TransactionScript.updateChallengeStatusTS;
+import org.soen387.app.TransactionScript.updateUserStatusTS;
 import org.soen387.app.common.CommonUtil;
 import org.soen387.app.common.Constants;
+import org.soen387.app.rdg.ChallengeRDG;
 import org.soen387.app.viewHelper.GameHelper;
 import org.soen387.app.viewHelper.UserHelper;
 import org.soen387.app.viewHelper.ViewHelper;
@@ -33,49 +35,77 @@ public class RetireFromGamePC extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		
-		String status = "3";
+		String status = "1";
 		
 		String passGameId = (String) req.getParameter("game");
+
 		
-		String gameId = (String) req.getSession(true).getAttribute("gameId");
+	
+		
+		String gameId = (String)req.getParameter("game");
+
+		ChallengeRDG challenge = ChallengeRDG.findPlayers(gameId);
+		
+		String challengerId = challenge.getChallenger();
+		String challengeeId = challenge.getChallengee();
 
 		String loginId = (String) req.getSession(true).getAttribute("loginId");
 		
-		
-		String uniqId2 = passGameId + loginId;
-		if(gameId == null) {
+		if(passGameId == null) {
 			String jsonStr = Constants.FAILUREJSON_ACCEPTCHALLENGE;
 			PrintWriter writer = resp.getWriter();
 			writer.write(jsonStr);
 			writer.close();
 		}
-		
-		if(uniqId2.equals(gameId)) {
-			if(updateChallengeStatusTS.exceute(passGameId, status)){
-				String jsonStr =Constants.SUCCESSJSON_ACCEPTCHALLENGE; // convert to json
-				PrintWriter writer = resp.getWriter();
-				writer.write(jsonStr);
-				writer.close();
-			} 
-			
-			
-			
-			else {
-				String jsonStr = Constants.FAILUREJSON_ACCEPTCHALLENGE;
-				PrintWriter writer = resp.getWriter();
-				writer.write(jsonStr);
-				writer.close();
-			}
-			
+		if(!loginId.equals(challengerId) && !loginId.equals(challengeeId)) {
+			PrintWriter writer = resp.getWriter();
+			writer.write(Constants.FAILUREJSON);
+			writer.close();
 		}
+		
+		
+		
+		if( updateUserStatusTS.exceute(loginId, status) ) {
+			String jsonStr = Constants.SUCCESSJSON;
+			PrintWriter writer = resp.getWriter();
+			writer.write(jsonStr);
+			writer.close();
+		}
+	
+
 		else {
-			String jsonStr = Constants.FAILUREJSON_ACCEPTCHALLENGE;
+			String jsonStr = Constants.FAILUREJSON;
 			PrintWriter writer = resp.getWriter();
 			writer.write(jsonStr);
 			writer.close();
 		}
 		
-		
+//		String uniqId2 = passGameId + loginId;
+//		if(gameId == null) {
+//			String jsonStr = Constants.FAILUREJSON_ACCEPTCHALLENGE;
+//			PrintWriter writer = resp.getWriter();
+//			writer.write(jsonStr);
+//			writer.close();
+//		}
+//		
+//		if(uniqId2.equals(gameId)) {
+//			if(updateChallengeStatusTS.exceute(passGameId, status)){
+//				String jsonStr =Constants.SUCCESSJSON_ACCEPTCHALLENGE; // convert to json
+//				PrintWriter writer = resp.getWriter();
+//				writer.write(jsonStr);
+//				writer.close();
+//			} 
+//			
+//			
+//			
+//			else {
+//				String jsonStr = Constants.FAILUREJSON_ACCEPTCHALLENGE;
+//				PrintWriter writer = resp.getWriter();
+//				writer.write(jsonStr);
+//				writer.close();
+//			}
+//			
+//		}
 			
 		
 		

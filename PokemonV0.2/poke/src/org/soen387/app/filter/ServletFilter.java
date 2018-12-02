@@ -42,7 +42,7 @@ public class ServletFilter implements Filter {
 		final String widthDrawChallengePattern = "/poke/Poke/Challenge/.*?/Withdraw";
 		final String playCardPattern = "/poke/Poke/Game/.*?/Hand/.*?/Play";
 		final String viewDiscardPattern = "/poke/Poke/Game/.*?/Player/.*?/Discard";
-		
+		final String retirePattern = "/poke/Poke/Game/.*?/Retire";
 		
 		
 		if(Pattern.matches(challengePlayerPattern, requestURI)) {
@@ -77,6 +77,12 @@ public class ServletFilter implements Filter {
 				
 				String[] split = requestURI.split("/");
 				RequestDispatcher rd = request.getRequestDispatcher("/ViewDiscard?game="+split[4]+"&player="+split[6]);
+				rd.forward(request, response);
+			}
+			else if(Pattern.matches(retirePattern, requestURI)) {
+				
+				String[] split = requestURI.split("/");
+				RequestDispatcher rd = request.getRequestDispatcher("/Retire?game="+split[4]);
 				rd.forward(request, response);
 			}
 			
