@@ -110,6 +110,28 @@ public class DeckRDG extends BaseRDG{
 		return deckList;
 	}
 	
+	public static List<DeckRDG> findDiscard(String deckId){
+		
+		List<DeckRDG> deckList = new ArrayList<DeckRDG>();
+		
+		ResultSet resultSet = excuteSelSql("SELECT DK.NAME,DK.TYPE,DK.CARD_ID "
+				+ "FROM DECK DK WHERE DK.DECK_ID = ? AND DK.STATUS = 2 ORDER BY DK.ORDER ",deckId);
+		
+		try {
+			while(resultSet.next()) {
+				
+				DeckRDG deckRDG = new DeckRDG(resultSet.getString(1),
+						resultSet.getString(2),resultSet.getString(3));
+				deckList.add(deckRDG);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return deckList;
+	}
+	
 	public static List<DeckRDG> findDecks(){
 		
 		List<DeckRDG> deckList = new ArrayList<DeckRDG>();
@@ -184,6 +206,21 @@ public class DeckRDG extends BaseRDG{
 		return userList;
 	}
 	
+	//drop card
+	public static void dropCard(String deckId) {
+		ResultSet resultSet = excuteSelSql("SELECT DK.CARD_ID FROM DECK DK  WHERE DK.DECK_ID = ?"
+				+ " AND DK.STATUS = 1 ORDER BY DK.ORDER DESC limit 7,8",deckId);
+
+		try {
+			if(resultSet.next()) {					
+				excuteInsertSql("UPDATE DECK SET STATUS = 2 WHERE CARD_ID = ?",resultSet.getString(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	//draw card
 	public static DeckRDG updateCardStatus(String deckId) {
 		DeckRDG deckRDG = null;
@@ -208,6 +245,13 @@ public class DeckRDG extends BaseRDG{
 			return deckRDG;
 	}
 
+	//discard card
+	public static Boolean playCardToDiscardStatus(String cardId) {
+		
+		excuteInsertSql("UPDATE DECK SET STATUS = 2 WHERE CARD_ID = ?",cardId);	
+		return true;
+	}
+	
 
 	public String getDeckId() {
 		return deckId;

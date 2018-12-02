@@ -40,6 +40,8 @@ public class ServletFilter implements Filter {
 		final String endTurnPattern = "/poke/Poke/Game/.*?/EndTurn";
 		final String refuseChallengePattern = "/poke/Poke/Challenge/.*?/Refuse";
 		final String widthDrawChallengePattern = "/poke/Poke/Challenge/.*?/Withdraw";
+		final String playCardPattern = "/poke/Poke/Game/.*?/Hand/.*?/Play";
+		final String viewDiscardPattern = "/poke/Poke/Game/.*?/Player/.*?/Discard";
 		
 		
 		
@@ -65,7 +67,22 @@ public class ServletFilter implements Filter {
 				String[] split = requestURI.split("/");
 				RequestDispatcher rd = request.getRequestDispatcher("/EndTurn?game="+split[4]);
 				rd.forward(request, response);
-			}else {
+			}else if(Pattern.matches(playCardPattern, requestURI)) {
+				
+				String[] split = requestURI.split("/");
+				RequestDispatcher rd = request.getRequestDispatcher("/PlayTrainer?game="+split[4]+"&card="+split[6]);
+				rd.forward(request, response);
+			}
+			else if(Pattern.matches(viewDiscardPattern, requestURI)) {
+				
+				String[] split = requestURI.split("/");
+				RequestDispatcher rd = request.getRequestDispatcher("/ViewDiscard?game="+split[4]+"&player="+split[6]);
+				rd.forward(request, response);
+			}
+			
+
+			
+			else {
 				
 				String[] split = requestURI.split("/");
 				RequestDispatcher rd = request.getRequestDispatcher("/ViewBoard?game="+split[4]);

@@ -31,6 +31,8 @@ public class ViewBoardTS {
 		String[] decks = {challenge.getChallenger(),challenge.getChallengee()};
 		viewHelper.setDecks(decks);
 		
+		
+		
 		List<PlayHelper> list = new ArrayList<PlayHelper>();
 		PlayRDG play1 = PlayRDG.findAll(challenge.getChallenger());
 		PlayHelper playHelper = new PlayHelper();
