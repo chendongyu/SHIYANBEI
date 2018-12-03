@@ -3,7 +3,11 @@ package org.soen387.app.rdg;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.soen387.app.common.CommonUtil;
 
@@ -36,8 +40,9 @@ public class PlayRDG extends BaseRDG {
 		this.status = status;
 	}
 
+	
 
-	public static PlayRDG findAll(String userId)
+	public static PlayRDG findAll(String userId, HttpServletRequest req)
 	{
 		PlayRDG PlayRDG = null;
 		String pHandSize = "0";
@@ -71,20 +76,27 @@ public class PlayRDG extends BaseRDG {
 					pStatus = resultSet.getString(1);
 					pDiscardSize = resultSet.getString(3);
 				}
-				
+			}
 				if(!CommonUtil.isEmpty(pStatus)) {
 					PlayRDG = new PlayRDG(pStatus,userId,pHandSize,pDeckSize,pDiscardSize);
-					BenchRDG BenchRDG = new BenchRDG();
-					BenchRDG.setCardId("1");
-					List benchRDGs = new ArrayList<BenchRDG>();
-					benchRDGs.add(BenchRDG);
-					BenchRDG BenchRDG2 = new BenchRDG();
-					BenchRDG2.setCardId("2");
-					benchRDGs.add(BenchRDG);
-					PlayRDG.setBenchRDG(benchRDGs);
+					List<BenchRDG> benchRDGs = BenchRDG.findAll(userId);
+					List<BenchRDG> benchRDGNew = new ArrayList<BenchRDG>();
+					Object attribute = req.getSession(true).getAttribute("benchEnergy");
+					if(attribute!=null) {
+						Map<String,String> pokemonsEnergyMapOld =  (HashMap<String,String>)attribute;
+						for(int i=0; i<benchRDGs.size(); i++) {
+							BenchRDG benchRDG2 = benchRDGs.get(i);
+							String value = pokemonsEnergyMapOld.get(benchRDG2.getCardId());
+							if(!CommonUtil.isEmpty(value)) {
+								benchRDG2.setEnergys(value);
+							}
+							benchRDGNew.add(benchRDG2);
+						}
+					}
+					
+					PlayRDG.setBenchRDG(benchRDGNew);
 				}
-				
-			} 
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();	

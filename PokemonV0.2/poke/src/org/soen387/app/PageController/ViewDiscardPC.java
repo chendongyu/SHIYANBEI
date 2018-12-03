@@ -39,7 +39,10 @@ public class ViewDiscardPC extends HttpServlet {
 		
 		String loginId = (String)request.getParameter("player");
 		String gameId = (String)request.getParameter("game");
-
+		String currentLoginId = (String)request.getSession(true).getAttribute("loginId");
+//		String loginId = (String)request.get
+		
+		
 		ChallengeRDG challenge = ChallengeRDG.findPlayers(gameId);
 		
 		String challengerId = challenge.getChallenger();
@@ -56,7 +59,7 @@ public class ViewDiscardPC extends HttpServlet {
 			writer.close();
 		}
 		
-		if(!loginId.equals(challengerId) && !loginId.equals(challengeeId)) {
+		if(!currentLoginId.equals(challengerId) && !currentLoginId.equals(challengeeId)) {
 			PrintWriter writer = response.getWriter();
 			writer.write(Constants.FAILUREJSON);
 			writer.close();

@@ -2,6 +2,7 @@ package org.soen387.app.viewHelper;
 
 import java.util.List;
 
+import org.soen387.app.common.CommonUtil;
 import org.soen387.app.rdg.BenchRDG;
 
 public class PlayHelper implements ViewHelper{
@@ -43,10 +44,16 @@ public class PlayHelper implements ViewHelper{
 		playJson.append(",");
 		playJson.append("\"bench\":[");
 		for(BenchRDG s: benchRDG) {
-			playJson.append(s.getCardId());
-			playJson.append(",");
+			playJson.append("{\"id\":"+s.getCardId());
+			if(!CommonUtil.isEmpty(s.getEnergys())) {
+				playJson.append(",");
+				playJson.append("\"e\":"+s.getEnergys());
+			}
+			playJson.append("},");
 		}
-		playJson.deleteCharAt(playJson.length()-1);
+		if(benchRDG.size()>0) {
+			playJson.deleteCharAt(playJson.length()-1);
+		}
 		playJson.append("]}");
 		return playJson.toString();
 	}

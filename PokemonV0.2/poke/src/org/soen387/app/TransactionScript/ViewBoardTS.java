@@ -3,6 +3,8 @@ package org.soen387.app.TransactionScript;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.soen387.app.common.CommonUtil;
 import org.soen387.app.rdg.ChallengeRDG;
 import org.soen387.app.rdg.PlayRDG;
@@ -11,7 +13,7 @@ import org.soen387.app.viewHelper.PlayHelper;
 
 public class ViewBoardTS {
 
-	public static boolean exceute(BoardHelper viewHelper,String gameId,String userId) {
+	public static boolean exceute(BoardHelper viewHelper,String gameId,String userId,HttpServletRequest req) {
 		
 		if(CommonUtil.isEmpty(gameId)) {
 			return false;
@@ -34,11 +36,11 @@ public class ViewBoardTS {
 		
 		
 		List<PlayHelper> list = new ArrayList<PlayHelper>();
-		PlayRDG play1 = PlayRDG.findAll(challenge.getChallenger());
+		PlayRDG play1 = PlayRDG.findAll(challenge.getChallenger(),req);
 		PlayHelper playHelper = new PlayHelper();
 		CommonUtil.setPropToVH(play1, playHelper);
 		list.add(playHelper);
-		PlayRDG play2 = PlayRDG.findAll(challenge.getChallengee());
+		PlayRDG play2 = PlayRDG.findAll(challenge.getChallengee(),req);
 		PlayHelper playHelper2 = new PlayHelper();
 		CommonUtil.setPropToVH(play2, playHelper2);
 		list.add(playHelper2);

@@ -12,6 +12,10 @@ public class BenchRDG extends BaseRDG {
 	private String userId;
 	
 	private String cardId;
+	
+	private String energys;
+	
+	private String bPrement;
 
 	private String benchId;
 	
@@ -43,10 +47,10 @@ public class BenchRDG extends BaseRDG {
 		List<BenchRDG> benchList =  new ArrayList<BenchRDG>();
 		
 		try {
-			ResultSet resultSet = excuteSelSql("SELECT BENCH.BENCH_ID, BENCH.CARD_ID, BENCH.USER_ID FROM BENCH WHERE USER_ID = ? ", 
+			ResultSet resultSet = excuteSelSql("SELECT DK.DECK_ID,DK.CARD_ID FROM DECK DK WHERE DK.STATUS = 3 AND DK.DECK_ID = ?", 
 					userId);
 			while(resultSet.next()) {
-				BenchRDG benchRDG= new BenchRDG(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3));
+				BenchRDG benchRDG= new BenchRDG(resultSet.getString(1),resultSet.getString(2),"");
 				benchList.add(benchRDG);
 				
 			} 
@@ -143,6 +147,38 @@ public class BenchRDG extends BaseRDG {
 
 	public void setBenchId(String benchId) {
 		this.benchId = benchId;
+	}
+
+
+
+
+
+	public String getEnergys() {
+		return energys;
+	}
+
+
+
+
+
+	public void setEnergys(String energys) {
+		this.energys = energys;
+	}
+
+
+
+
+
+	public String getbPrement() {
+		return bPrement;
+	}
+
+
+
+
+
+	public void setbPrement(String bPrement) {
+		this.bPrement = bPrement;
 	}
 	
 	

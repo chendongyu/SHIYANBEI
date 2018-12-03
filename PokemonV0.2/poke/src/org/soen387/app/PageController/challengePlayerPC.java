@@ -19,7 +19,7 @@ public class challengePlayerPC extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	
+//	private static String lastChallenge;
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -29,6 +29,7 @@ public class challengePlayerPC extends HttpServlet {
 		String status = "0";
 		String deckId = req.getParameter("deck");
 		UserRDG userRDG = UserRDG.findById(player2_id);
+		 
 		
 		if(Integer.parseInt(deckId)<0) {
 			String jsonStr =Constants.FAILUREJSON_CHALLENGEPLAYER; // convert to json
@@ -37,6 +38,14 @@ public class challengePlayerPC extends HttpServlet {
 			writer.write(jsonStr);
 			writer.close();
 		}
+//		//没有在accept里生成过 所以不能连续challenge两次
+//		if(req.getSession(true).getAttribute("gameId")==null && lastChallenge.equals(player1_id + player2_id)) {
+//			String jsonStr = Constants.FAILUREJSON_CHALLENGEPLAYER;
+//			PrintWriter writer = resp.getWriter();
+//			writer.write(jsonStr);
+//			writer.close();
+//		}
+		
 	
 		if(userRDG == null ||CommonUtil.isEmpty(player1_id)|| CommonUtil.isEmpty(player2_id) || player1_id.equals(player2_id)
 				||Integer.parseInt(player1_id) < 0||Integer.parseInt(player2_id) < 0) {
@@ -48,6 +57,9 @@ public class challengePlayerPC extends HttpServlet {
 			
 			req.getSession(true).setAttribute("challengeFlag", Constants.CHALLENGEON);
 			String jsonStr =Constants.SUCCESSJSON_CHALLENGEPLAYER; // convert to json
+
+			//lastChallenge = player1_id + player2_id;
+			
 			PrintWriter writer = resp.getWriter();
 			writer.write(jsonStr);
 			writer.close();

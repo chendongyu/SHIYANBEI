@@ -33,6 +33,16 @@ public class DeckRDG extends BaseRDG{
 		
 	}
 	
+	public DeckRDG(String name,String type,String cardId,String status,String deckId) {
+		
+		this.name = name;
+		this.type = type;
+		this.cardId = cardId;
+		this.status = status;
+		this.deckId = deckId;
+		
+	}
+	
 	public DeckRDG(String deckId) {
 		
 		this.deckId = deckId;
@@ -108,6 +118,41 @@ public class DeckRDG extends BaseRDG{
 		}
 		
 		return deckList;
+	}
+	
+	//discard card
+	public static Boolean playCardToBench(String cardId) {
+		
+	    int updateNum = excuteInsertSql("UPDATE DECK SET STATUS = 3 WHERE CARD_ID = ?",cardId);
+	    
+	    if(updateNum == 0) {
+	    	
+	    	return false;
+	    }else {
+	    	
+	    	return true;
+	    }
+	}
+	
+	public static DeckRDG findCardByGameIdAndCardId(String cardId) {
+		
+		DeckRDG deckRDG = null;
+		
+		ResultSet resultSet = excuteSelSql("SELECT DK.NAME,DK.TYPE,DK.CARD_ID,DK.STATUS,DK.DECK_ID "
+				+ "FROM DECK DK WHERE DK.CARD_ID = ?",cardId);
+	
+		try {
+			if(resultSet.next()) {
+				
+				deckRDG = new DeckRDG(resultSet.getString(1),
+						resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return deckRDG;
 	}
 	
 	public static List<DeckRDG> findDiscard(String deckId){
@@ -204,6 +249,11 @@ public class DeckRDG extends BaseRDG{
 		}
 		
 		return userList;
+	}
+	
+	public static void dropCardByCardId(String deckId) {
+		
+		excuteInsertSql("UPDATE DECK SET STATUS = 2 WHERE CARD_ID = ?",deckId);
 	}
 	
 	//drop card

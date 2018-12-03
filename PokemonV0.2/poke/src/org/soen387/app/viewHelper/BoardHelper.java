@@ -39,7 +39,7 @@ public class BoardHelper implements ViewHelper {
 		
 		playJson.append("players\":[");
 		for(String s : players) {
-			playJson.append(s);
+			playJson.append("\""+s+"\"");
 			playJson.append(",");
 		}
 		playJson.deleteCharAt(playJson.length()-1);

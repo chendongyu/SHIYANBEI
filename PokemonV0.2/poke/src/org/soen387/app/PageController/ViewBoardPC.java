@@ -28,7 +28,7 @@ public class ViewBoardPC extends HttpServlet{
 		String gameId = (String) req.getParameter("game");
 		String loginId = (String)req.getSession(true).getAttribute("loginId");
 		viewHelper = new BoardHelper();
-		if(ViewBoardTS.exceute(viewHelper, gameId,loginId)) {
+		if(ViewBoardTS.exceute(viewHelper, gameId,loginId,req)) {
 			PrintWriter writer = resp.getWriter();
 			writer.write(viewHelper.toJson());
 			writer.close();

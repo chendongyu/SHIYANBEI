@@ -77,6 +77,8 @@ public class AcceptChallengePC extends HttpServlet {
 			
 			req.getSession(true).setAttribute("gameId", (challengeId + challengerId));
 			
+			req.getSession(true).setAttribute("challengeTwiceFlag", "true");
+			
 			DrawCardTS.exceute(ChallengeRDG.findPlayers(challengeId).getChallenger(),challengeId);
 			req.getSession(true).setAttribute("challengeFlag", Constants.CHALLENGEON);
 			PrintWriter writer = resp.getWriter();
